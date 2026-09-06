@@ -1,0 +1,772 @@
+﻿<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>聚合账号商城 | 接码 · 海外账号 · 国内号商 一站聚合</title>
+<meta name="description" content="聚合 SMS-BUS 接码平台、黄龙海外账号批发、国内号商与天涯账号，一站浏览全部商品。">
+<style>
+:root{
+--ios-bg-card:rgba(255,255,255,0.92);
+--ios-bg-sidebar:rgba(249,250,251,0.95);
+--ios-text-primary:#1d1d1f;
+--ios-text-secondary:#6e6e73;
+--ios-accent-blue:#007aff;
+--ios-accent-deep:#0051d5;
+--ios-price-color:#ff9500;
+--fresh-price-color:#ff9500;
+--ios-border:rgba(0,0,0,0.06);
+--ios-hover-bg:rgba(0,122,255,0.08);
+--ios-shadow-sm:0 1px 3px rgba(0,0,0,0.04),0 1px 2px rgba(0,0,0,0.02);
+--ios-shadow-md:0 4px 6px rgba(0,0,0,0.05),0 2px 4px rgba(0,0,0,0.03),0 0 1px rgba(0,0,0,0.02);
+--ios-shadow-lg:0 10px 15px rgba(0,0,0,0.06),0 4px 6px rgba(0,0,0,0.04),0 0 1px rgba(0,0,0,0.02);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+margin:0;color:var(--ios-text-primary);
+font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans","Microsoft YaHei",sans-serif;
+background:
+radial-gradient(1100px 700px at 85% -10%,rgba(64,156,255,.38),transparent 60%),
+radial-gradient(900px 650px at -10% 110%,rgba(0,210,255,.28),transparent 60%),
+radial-gradient(700px 500px at 50% 120%,rgba(88,86,214,.25),transparent 60%),
+linear-gradient(135deg,#0b1e3a 0%,#12294f 45%,#0a3a52 100%);
+background-attachment:fixed;
+min-height:100vh;
+}
+.container{max-width:1280px;margin:0 auto;padding:0 16px}
+a{color:var(--ios-accent-blue)}
+/* header */
+header{padding:16px 0 4px}
+.header-inner{display:flex;align-items:center;flex-wrap:wrap;gap:10px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:20px;color:#fff;text-decoration:none;letter-spacing:-.02em}
+.brand small{display:block;font-size:11px;font-weight:600;color:rgba(255,255,255,.75)}
+.brand-logo{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#007aff,#00c6ff);display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 4px 14px rgba(0,122,255,.45);flex-shrink:0}
+.nav{display:flex;list-style:none;gap:4px;margin:0;padding:0;flex-wrap:wrap}
+.nav a{display:flex;align-items:center;gap:6px;padding:8px 14px;border-radius:10px;color:rgba(255,255,255,.85);text-decoration:none;font-weight:600;font-size:14px;transition:.2s}
+.nav a:hover{background:rgba(255,255,255,.16);color:#fff}
+.nav .active a{color:#fff;background:rgba(255,255,255,.2)}
+.auth{margin-left:auto;display:flex;gap:8px}
+.btn-ios-login,.btn-ios-register{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:20px;font-weight:600;font-size:13px;text-decoration:none;transition:.2s}
+.btn-ios-login{color:#fff;border:1px solid rgba(255,255,255,.5);background:rgba(255,255,255,.08)}
+.btn-ios-login:hover{background:rgba(255,255,255,.18)}
+.btn-ios-register{background:var(--ios-accent-blue);color:#fff!important;box-shadow:0 2px 8px rgba(0,122,255,.4)}
+.btn-ios-register:hover{background:var(--ios-accent-deep);transform:translateY(-1px)}
+/* notice */
+.notice{background:var(--ios-bg-card);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-radius:14px;padding:18px 22px;margin:12px 0 14px;box-shadow:var(--ios-shadow-md)}
+.notice h4{margin:0 0 6px;font-size:17px}
+.notice h5{margin:8px 0;font-size:14px;line-height:1.7}
+.notice .n-red{color:#c24f4a}
+.notice .n-blue{color:#4d80bf}
+/* layout */
+.layout{display:grid;grid-template-columns:280px minmax(0,1fr);gap:14px;align-items:start}
+/* sidebar */
+.sidebar{background:var(--ios-bg-sidebar);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-radius:14px;box-shadow:var(--ios-shadow-md);padding:10px 0;position:sticky;top:12px;max-height:calc(100vh - 24px);overflow:auto}
+.sidebar-title{padding:8px 18px 4px;font-size:12px;font-weight:700;color:var(--ios-text-secondary);letter-spacing:.06em}
+.cat-item{margin:0}
+.cat-link{display:flex;align-items:center;gap:10px;margin:3px 8px;padding:10px 12px;border-radius:10px;font-size:15px;font-weight:500;color:var(--ios-text-primary)!important;cursor:pointer;transition:.2s;text-decoration:none;user-select:none}
+.cat-link:hover{background:var(--ios-hover-bg);color:var(--ios-accent-blue)!important}
+.cat-link.active{background:rgba(0,122,255,.12);color:var(--ios-accent-blue)!important;font-weight:700}
+.cat-icon{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;background:rgba(0,122,255,.1);flex-shrink:0}
+.cat-badge{margin-left:auto;background:rgba(0,122,255,.12);color:var(--ios-accent-blue);font-size:12px;font-weight:700;border-radius:10px;padding:1px 9px}
+.cat-arrow{margin-left:6px;font-size:11px;color:var(--ios-text-secondary);transition:transform .2s}
+.cat-link.open .cat-arrow{transform:rotate(90deg)}
+.cat-children{display:none;margin-left:24px;padding-bottom:4px}
+.cat-children.show{display:block}
+.cat-child{display:flex;align-items:center;gap:8px;margin:2px 8px;padding:8px 10px;border-radius:8px;font-size:14px;color:var(--ios-text-primary)!important;cursor:pointer;text-decoration:none;transition:.15s}
+.cat-child:hover{background:var(--ios-hover-bg);color:var(--ios-accent-blue)!important}
+.cat-child.active{background:rgba(0,122,255,.12);color:var(--ios-accent-blue)!important;font-weight:600}
+.cat-child .cat-badge{font-size:11px;padding:0 7px}
+/* product area */
+.toolbar{display:flex;align-items:center;gap:12px;background:var(--ios-bg-card);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-radius:14px;padding:12px 18px;margin-bottom:12px;box-shadow:var(--ios-shadow-md);flex-wrap:wrap}
+.toolbar h2{margin:0;font-size:18px;font-weight:800;display:flex;align-items:center;gap:8px}
+.toolbar .count{font-size:13px;color:var(--ios-text-secondary);font-weight:600}
+.search{margin-left:auto;position:relative}
+.search .si{position:absolute;left:13px;top:50%;transform:translateY(-50%);font-size:14px;opacity:.5}
+.search input{width:250px;max-width:60vw;padding:9px 14px 9px 36px;border-radius:20px;border:1px solid var(--ios-border);background:#fff;font-size:14px;outline:none;transition:.2s;font-family:inherit}
+.search input:focus{border-color:var(--ios-accent-blue);box-shadow:0 0 0 3px rgba(0,122,255,.15)}
+.table-card{background:var(--ios-bg-card);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-radius:14px;box-shadow:var(--ios-shadow-md);overflow:hidden}
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse}
+thead th{font-size:13px;color:var(--ios-text-secondary);font-weight:700;text-align:left;padding:13px 16px;border-bottom:1px solid var(--ios-border);white-space:nowrap;background:rgba(0,122,255,.04)}
+thead th.c-price,thead th.c-stock{width:110px}
+thead th.c-buy{text-align:right}
+tbody tr{border-bottom:1px solid var(--ios-border);transition:.15s}
+tbody tr:hover{background:rgba(0,122,255,.045)}
+tbody tr:last-child{border-bottom:none}
+td{padding:12px 16px;vertical-align:middle}
+.item-link{display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit!important;min-width:220px}
+.item-icon{width:50px;height:50px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:24px;background:rgba(0,122,255,.08)}
+.item-name{font-size:15px;font-weight:500;line-height:1.45}
+.item-tag{color:#e67e22;font-weight:bold}
+.src-badge{display:inline-block;margin-left:8px;padding:2px 9px;border-radius:10px;font-size:11px;font-weight:700;color:#fff;vertical-align:1px;white-space:nowrap}
+.price-value{font-weight:700;font-size:16px;color:var(--fresh-price-color);white-space:nowrap}
+.price-sub{display:block;font-size:12px;color:var(--ios-text-secondary);font-weight:500;white-space:nowrap}
+.stock-value{font-weight:600;font-size:15px;color:#10b981;white-space:nowrap}
+.stock-dim{color:var(--ios-text-secondary);font-size:13px;font-weight:600}
+.btn-buy-it{display:inline-flex;align-items:center;gap:4px;padding:6px 14px;background:var(--ios-accent-blue);color:#fff!important;text-decoration:none;border-radius:18px;font-weight:600;font-size:13px;transition:.2s;box-shadow:0 1px 3px rgba(0,0,0,.12),0 1px 4px rgba(0,122,255,.2);white-space:nowrap}
+.btn-buy-it:hover{transform:translateY(-1px) scale(1.02);box-shadow:0 2px 6px rgba(0,0,0,.14),0 3px 8px rgba(0,122,255,.3);background:var(--ios-accent-deep)}
+.empty-row td{text-align:center;padding:40px 16px;color:var(--ios-text-secondary);font-size:14px}
+/* features */
+.features{display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:12px;margin:18px 0 6px}
+.feature{background:var(--ios-bg-card);backdrop-filter:saturate(180%) blur(20px);border-radius:14px;padding:16px 12px;text-align:center;box-shadow:var(--ios-shadow-sm);transition:.2s}
+.feature:hover{transform:translateY(-2px);box-shadow:var(--ios-shadow-lg)}
+.feature .fi{font-size:26px}
+.feature b{display:block;margin-top:6px;font-size:14px}
+.feature span{font-size:12px;color:var(--ios-text-secondary)}
+/* sources */
+.sec-title{color:#fff;font-size:18px;font-weight:800;margin:20px 0 10px;display:flex;align-items:center;gap:8px}
+.sources{display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));gap:12px}
+.source-card{background:var(--ios-bg-card);backdrop-filter:saturate(180%) blur(20px);border-radius:14px;padding:18px;box-shadow:var(--ios-shadow-md);display:flex;flex-direction:column;gap:8px;transition:.2s}
+.source-card:hover{transform:translateY(-2px);box-shadow:var(--ios-shadow-lg)}
+.source-card .sc-head{display:flex;align-items:center;gap:10px}
+.source-card .sc-icon{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;color:#fff;flex-shrink:0}
+.source-card b{font-size:15px}
+.source-card p{margin:0;font-size:13px;color:var(--ios-text-secondary);line-height:1.6;flex:1}
+.source-card .sc-link{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:8px 14px;border-radius:18px;font-size:13px;font-weight:700;color:#fff!important;text-decoration:none;transition:.2s}
+.source-card .sc-link:hover{transform:translateY(-1px);filter:brightness(1.08)}
+/* footer */
+footer{margin:26px 0 30px;text-align:center;color:rgba(255,255,255,.75);font-size:13px;line-height:1.9}
+footer a{color:#9ecbff}
+@media (max-width:992px){
+.layout{grid-template-columns:1fr}
+.sidebar{position:static;max-height:none}
+}
+@media (max-width:768px){
+.w-pc{display:none}
+.brand span.bt{font-size:16px}
+.search input{width:180px}
+}
+/* compare center */
+.compare{background:var(--ios-bg-card);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-radius:14px;padding:20px 22px;margin-top:18px;box-shadow:var(--ios-shadow-md)}
+.compare h3{margin:0 0 4px;font-size:17px;font-weight:800}
+.compare .sub{font-size:13px;color:var(--ios-text-secondary);margin-bottom:14px}
+.channel-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin-bottom:16px}
+.channel-card{border:1px solid var(--ios-border);border-radius:12px;padding:14px 16px;background:rgba(255,255,255,.65);transition:.2s}
+.channel-card:hover{transform:translateY(-2px);box-shadow:var(--ios-shadow-md)}
+.channel-card .ch-head{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:700;margin-bottom:6px}
+.channel-card p{margin:0;font-size:12.5px;color:var(--ios-text-secondary);line-height:1.7}
+.channel-card .ch-fit{display:inline-block;margin-top:8px;padding:2px 10px;border-radius:10px;font-size:11px;font-weight:700;color:#fff}
+.compare-table{width:100%;border-collapse:collapse;font-size:13px}
+.compare-table th{font-size:12px;color:var(--ios-text-secondary);font-weight:700;text-align:left;padding:9px 12px;border-bottom:1px solid var(--ios-border);white-space:nowrap;background:rgba(0,122,255,.04)}
+.compare-table td{padding:9px 12px;border-bottom:1px solid var(--ios-border);vertical-align:middle}
+.compare-table tr:last-child td{border-bottom:none}
+.compare-table tr:hover td{background:rgba(0,122,255,.035)}
+.compare-table .cmp-price{font-weight:700;color:var(--fresh-price-color);white-space:nowrap}
+.compare-table .cmp-src{display:inline-block;padding:1px 8px;border-radius:9px;font-size:11px;font-weight:700;color:#fff;white-space:nowrap}
+.compare-table .cmp-note{color:#10b981;font-weight:600;white-space:nowrap}
+/* faq */
+.sec-title.center{justify-content:center}
+.faq{max-width:860px;margin:0 auto}
+.faq details{background:var(--ios-bg-card);backdrop-filter:saturate(180%) blur(20px);border-radius:12px;margin-bottom:9px;box-shadow:var(--ios-shadow-sm);overflow:hidden;border:1px solid transparent;transition:.2s}
+.faq details[open]{border-color:rgba(0,122,255,.25);box-shadow:var(--ios-shadow-md)}
+.faq summary{padding:14px 18px;font-weight:600;font-size:14px;cursor:pointer;list-style:none;display:flex;align-items:center;gap:8px;user-select:none}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary .qi{flex-shrink:0}
+.faq summary::after{content:'+';margin-left:auto;font-size:18px;font-weight:700;color:var(--ios-accent-blue);transition:transform .2s}
+.faq details[open] summary::after{content:'−'}
+.faq .faq-a{padding:0 18px 15px;font-size:13.5px;color:var(--ios-text-secondary);line-height:1.9}
+.faq .faq-a b{color:var(--ios-text-primary)}
+/* purchase modal */
+.modal-mask{display:none;position:fixed;inset:0;background:rgba(6,18,38,.6);backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);z-index:100;align-items:center;justify-content:center;padding:16px}
+.modal-mask.show{display:flex}
+.modal{background:#fff;border-radius:16px;max-width:430px;width:100%;padding:22px;box-shadow:0 20px 60px rgba(0,0,0,.35);animation:pop .18s ease;max-height:90vh;overflow:auto}
+@keyframes pop{from{transform:scale(.94);opacity:0}to{transform:scale(1);opacity:1}}
+.modal .m-head{display:flex;align-items:flex-start;gap:12px;margin-bottom:10px}
+.modal .m-icon{width:48px;height:48px;border-radius:50%;background:rgba(0,122,255,.08);display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0}
+.modal h4{margin:0;font-size:15px;line-height:1.45}
+.modal .m-price{color:var(--fresh-price-color);font-weight:800;font-size:19px;margin:0 0 10px 60px}
+.modal .m-price small{font-size:12px;color:var(--ios-text-secondary);font-weight:600}
+.modal ul{margin:0 0 16px;padding-left:20px;font-size:13px;color:var(--ios-text-secondary);line-height:2}
+.modal ul b{color:var(--ios-text-primary)}
+.modal .m-btns{display:flex;gap:10px}
+.modal .m-go{flex:1;border:none;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:11px 16px;background:var(--ios-accent-blue);color:#fff!important;text-decoration:none;border-radius:20px;font-weight:700;font-size:14px;transition:.2s;box-shadow:0 2px 8px rgba(0,122,255,.35)}
+.modal .m-go:hover{background:var(--ios-accent-deep);transform:translateY(-1px)}
+.modal .m-stay{padding:11px 18px;background:rgba(0,122,255,.08);color:var(--ios-accent-blue);border:none;border-radius:20px;font-weight:700;font-size:14px;cursor:pointer;font-family:inherit;transition:.2s}
+.modal .m-stay:hover{background:rgba(0,122,255,.15)}
+.modal .m-tip{margin:12px 0 0;font-size:11.5px;color:var(--ios-text-secondary);text-align:center}
+/* dealbar countdown */
+.dealbar{position:sticky;top:0;z-index:50;background:linear-gradient(90deg,#ff9500,#ff6a00);color:#fff;text-align:center;font-size:13px;font-weight:700;padding:8px 12px;box-shadow:0 2px 10px rgba(255,106,0,.35);letter-spacing:.02em}
+.dealbar b{font-variant-numeric:tabular-nums;letter-spacing:.08em;font-size:14px}
+/* splash */
+.splash{position:fixed;inset:0;z-index:300;background:linear-gradient(135deg,#0b1e3a 0%,#12294f 45%,#0a3a52 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;transition:opacity .45s;pointer-events:none;animation:splashAuto 2s ease forwards}
+.splash.hide{opacity:0;pointer-events:none}
+.splash-logo{width:78px;height:78px;border-radius:20px;background:linear-gradient(135deg,#007aff,#00c6ff);display:flex;align-items:center;justify-content:center;font-size:40px;box-shadow:0 10px 30px rgba(0,122,255,.45);animation:spulse 1.2s ease infinite}
+@keyframes spulse{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+@keyframes splashAuto{0%,68%{opacity:1}100%{opacity:0;visibility:hidden}}
+.splash-name{color:#fff;font-weight:800;font-size:20px;letter-spacing:.1em}
+.splash-name small{display:block;text-align:center;font-size:11px;font-weight:600;color:rgba(255,255,255,.6);margin-top:4px;letter-spacing:.04em}
+.splash-bar{width:190px;height:4px;border-radius:2px;background:rgba(255,255,255,.14);overflow:hidden}
+.splash-bar i{display:block;height:100%;width:40%;border-radius:2px;background:linear-gradient(90deg,#007aff,#00c6ff);animation:sbar 1.15s ease-in-out infinite}
+@keyframes sbar{0%{transform:translateX(-110%)}100%{transform:translateX(480%)}}
+/* broadcast */
+.bcast{position:fixed;left:16px;bottom:16px;z-index:90;background:var(--ios-bg-card);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-radius:12px;padding:10px 30px 10px 12px;box-shadow:var(--ios-shadow-lg);font-size:13px;max-width:310px;transform:translateY(150%);transition:transform .5s cubic-bezier(.22,1,.36,1)}
+.bcast.show{transform:translateY(0)}
+.bcast .b-fire{font-size:18px;flex-shrink:0}
+.bcast .bc-body{line-height:1.55}
+.bcast .bc-name{font-weight:700}
+.bcast .bc-item{color:var(--ios-accent-blue);font-weight:600}
+.bcast .bc-time{color:var(--ios-text-secondary);font-size:11px;margin-left:4px;white-space:nowrap}
+.bcast-x{position:absolute;top:3px;right:7px;border:none;background:none;color:var(--ios-text-secondary);font-size:15px;cursor:pointer;padding:2px}
+/* coupon */
+.coupon-top{font-size:42px;text-align:center;margin-bottom:2px}
+.coupon-title{text-align:center;font-size:16px;font-weight:800;margin:0 0 8px}
+.coupon-amt{text-align:center;color:var(--fresh-price-color);font-weight:900;font-size:46px;line-height:1.05}
+.coupon-amt small{font-size:22px;font-weight:800}
+.coupon-sub{text-align:center;font-size:12.5px;color:var(--ios-text-secondary);margin:6px 0 10px}
+.coupon-timer{text-align:center;font-size:13px;color:var(--ios-text-secondary);margin-bottom:14px}
+.coupon-timer b{color:#e34d4d;font-variant-numeric:tabular-nums;font-size:15px}
+.coupon-btn{width:100%;justify-content:center}
+.coupon-skip{width:100%;margin-top:8px;padding:9px;background:none;border:none;color:var(--ios-text-secondary);font-size:12.5px;cursor:pointer;font-family:inherit}
+.coupon-code{display:none;text-align:center;background:rgba(16,185,129,.08);border:1px dashed #10b981;color:#0a8f66;border-radius:10px;padding:10px 12px;font-size:13px;font-weight:700;margin-bottom:12px;line-height:1.6}
+</style>
+</head>
+<body id="top">
+<header>
+  <div class="container header-inner">
+    <a class="brand" href="#top">
+      <span class="brand-logo">🌐</span>
+      <span class="bt">聚合账号商城<small>接码 · 海外账号 · 国内号商 一站聚合</small></span>
+    </a>
+    <ul class="nav">
+      <li class="active"><a href="#top">🛍️ 购物</a></li>
+      <li><a href="javascript:void(0)">✔️ 订单查询</a></li>
+      <li><a href="javascript:void(0)">🛒 购物车</a></li>
+    </ul>
+    <div class="auth">
+      <a class="btn-ios-login" href="javascript:void(0)">👤 登录</a>
+      <a class="btn-ios-register" href="javascript:void(0)">注册 ➕</a>
+    </div>
+  </div>
+</header>
+<div class="dealbar">⏰ 今日批发价倒计时 <b id="dealT">00:00:00</b> · 全场商品限时特价，过时恢复原价</div>
+
+<main class="container">
+  <div class="notice">
+    <h4>📢 商城公告</h4>
+    <h5 class="n-red"><b>免责声明：</b>本站为第三方商品聚合导航页，商品、价格与库存均以各来源平台实时数据为准；所有商品仅供学习测试使用，请勿用于违法活动，否则后果自负。</h5>
+    <h5 class="n-blue"><b>购买须知：</b>卡密请及时保存（后台不定时删除记录），拿到账号后请及时修改密码。不会使用、超出售后时间，概不退款！</h5>
+    <h5 class="n-red"><b>⚠️ 重要提示：</b>海外账号默认您已具备【海外网络环境】、【账号知识】与【独立操作能力】；Telegram 号商交易请先验货后付款，自行甄别风险。</h5>
+  </div>
+
+  <div class="layout">
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-title">商品分类</div>
+      <nav id="catNav">
+<div class="cat-item"><a class="cat-link active" data-cat="rec"><span class="cat-icon">⭐</span><span>推荐商品</span><span class="cat-badge">14</span></a></div><div class="cat-item"><a class="cat-link" data-cat="sms"><span class="cat-icon">📱</span><span>接码平台</span><span class="cat-arrow">▶</span><span class="cat-badge">7</span></a><div class="cat-children"><a class="cat-child" data-cat="sms-wa"><span>💬</span><span>WhatsApp</span><span class="cat-badge">1</span></a><a class="cat-child" data-cat="sms-tg"><span>✈️</span><span>Telegram</span><span class="cat-badge">1</span></a><a class="cat-child" data-cat="sms-tk"><span>🎵</span><span>TikTok/Douyin</span><span class="cat-badge">1</span></a><a class="cat-child" data-cat="sms-gg"><span>🔍</span><span>Google/Gmail</span><span class="cat-badge">1</span></a><a class="cat-child" data-cat="sms-az"><span>📦</span><span>Amazon</span><span class="cat-badge">1</span></a><a class="cat-child" data-cat="sms-ms"><span>🪟</span><span>Microsoft</span><span class="cat-badge">1</span></a><a class="cat-child" data-cat="sms-red"><span>📕</span><span>小红书</span><span class="cat-badge">1</span></a></div></div><div class="cat-item"><a class="cat-link" data-cat="acc"><span class="cat-icon">🌏</span><span>海外账号批发</span><span class="cat-arrow">▶</span><span class="cat-badge">20</span></a><div class="cat-children"><a class="cat-child" data-cat="acc-gmail"><span>✉️</span><span>谷歌邮箱</span><span class="cat-badge">7</span></a><a class="cat-child" data-cat="acc-ai"><span>🤖</span><span>AI 工具</span><span class="cat-badge">7</span></a><a class="cat-child" data-cat="acc-x"><span>𝕏</span><span>Twitter/X</span><span class="cat-badge">4</span></a><a class="cat-child" data-cat="acc-cl"><span>🧠</span><span>Claude</span><span class="cat-badge">2</span></a></div></div><div class="cat-item"><a class="cat-link" data-cat="cn"><span class="cat-icon">🇨🇳</span><span>国内号商</span><span class="cat-arrow">▶</span><span class="cat-badge">5</span></a><div class="cat-children"><a class="cat-child" data-cat="cn-wx"><span>💚</span><span>微信</span><span class="cat-badge">1</span></a><a class="cat-child" data-cat="cn-dy"><span>🎬</span><span>抖音</span><span class="cat-badge">1</span></a><a class="cat-child" data-cat="cn-zfb"><span>💳</span><span>支付宝</span><span class="cat-badge">1</span></a><a class="cat-child" data-cat="cn-card"><span>📱</span><span>手机卡</span><span class="cat-badge">1</span></a><a class="cat-child" data-cat="cn-red"><span>📕</span><span>小红书</span><span class="cat-badge">1</span></a></div></div><div class="cat-item"><a class="cat-link" data-cat="ty"><span class="cat-icon">🌅</span><span>天涯账号</span><span class="cat-arrow">▶</span><span class="cat-badge">1</span></a><div class="cat-children"><a class="cat-child" data-cat="ty-acc"><span>🔮</span><span>天涯社交账号</span><span class="cat-badge">1</span></a></div></div>
+      </nav>
+    </aside>
+
+    <section class="product-area">
+      <div class="toolbar">
+        <h2 id="catTitle">⭐ 推荐商品</h2>
+        <span class="count" id="catCount"></span>
+        <div class="search">
+          <span class="si">🔍</span>
+          <input type="text" id="searchInput" placeholder="搜索商品名称…" autocomplete="off">
+        </div>
+      </div>
+      <div class="table-card">
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>📦 商品名称</th>
+                <th class="c-price w-pc">🏷️ 价格</th>
+                <th class="c-stock w-pc">📊 库存</th>
+                <th class="c-buy">🛒 操作</th>
+              </tr>
+            </thead>
+            <tbody id="tbody">
+<tr><td><a class="item-link" href="javascript:void(0)" data-pi="0"><span class="item-icon">💬</span><span class="item-name"><span class="item-tag">[全球号码] </span>WhatsApp 接码 · 全球号码池<span class="src-badge" style="background:#10b981">SMS-BUS</span></span></a></td><td class="w-pc"><span class="price-value">¥3.5</span><span class="price-sub">$0.48 起</span></td><td class="w-pc"><span class="stock-value">286,728 pcs</span></td><td class="c-buy" style="text-align:right"><a class="btn-buy-it" href="javascript:void(0)" data-pi="0">🛒 购买</a></td></tr><tr><td><a class="item-link" href="javascript:void(0)" data-pi="1"><span class="item-icon">✈️</span><span class="item-name"><span class="item-tag">[全球号码] </span>Telegram 接码 · 全球号码池<span class="src-badge" style="background:#10b981">SMS-BUS</span></span></a></td><td class="w-pc"><span class="price-value">¥2.4</span><span class="price-sub">$0.33 起</span></td><td class="w-pc"><span class="stock-value">549 pcs</span></td><td class="c-buy" style="text-align:right"><a class="btn-buy-it" href="javascript:void(0)" data-pi="1">🛒 购买</a></td></tr><tr><td><a class="item-link" href="javascript:void(0)" data-pi="2"><span class="item-icon">🔍</span><span class="item-name"><span class="item-tag">[全球号码] </span>Google / YouTube / Gmail 接码<span class="src-badge" style="background:#10b981">SMS-BUS</span></span></a></td><td class="w-pc"><span class="price-value">¥1.5</span><span class="price-sub">$0.21 起</span></td><td class="w-pc"><span class="stock-value">634,936 pcs</span></td><td class="c-buy" style="text-align:right"><a class="btn-buy-it" href="javascript:void(0)" data-pi="2">🛒 购买</a></td></tr><tr><td><a class="item-link" href="javascript:void(0)" data-pi="3"><span class="item-icon">📕</span><span class="item-name"><span class="item-tag">[全球号码] </span>REDnote / 小红书 接码<span class="src-badge" style="background:#10b981">SMS-BUS</span></span></a></td><td class="w-pc"><span class="price-value">¥0.9</span><span class="price-sub">$0.12 起</span></td><td class="w-pc"><span class="stock-value">35,915 pcs</span></td><td class="c-buy" style="text-align:right"><a class="btn-buy-it" href="javascript:void(0)" data-pi="3">🛒 购买</a></td></tr><tr><td><a class="item-link" href="javascript:void(0)" data-pi="4"><span class="item-icon">✉️</span><span class="item-name"><span class="item-tag">[1h售后] </span>GG 域名邮箱，YouTube专用<span class="src-badge" style="background:#007aff">黄龙海外账号</span></span></a></td><td class="w-pc"><span class="price-value">¥ 9.1</span></td><td class="w-pc"><span class="stock-value">136 件</span></td><td class="c-buy" style="text-align:right"><a class="btn-buy-it" href="javascript:void(0)" data-pi="4">🛒 购买</a></td></tr><tr><td><a class="item-link" href="javascript:void(0)" data-pi="5"><span class="item-icon">🤖</span><span class="item-name"><span class="item-tag">[1h售后] </span>Codex接码 · 长效 25-30天 · 店长推荐<span class="src-badge" style="background:#007aff">黄龙海外账号</span></span></a></td><td class="w-pc"><span class="price-value">¥ 17</span></td><td class="w-pc"><span class="stock-value">17 件</span></td><td class="c-buy" style="text-align:right"><a class="btn-buy-it" href="javascript:void(0)" data-pi="5">🛒 购买</a></td></tr><tr><td><a class="item-link" href="javascript:void(0)" data-pi="6"><span class="item-icon">✉️</span><span class="item-name"><span class="item-tag">[1h售后] </span>Gmail 5年左右老号 · 美国地区带密保 · 优质推荐<span class="src-badge" style="background:#007aff">黄龙海外账号</span></span></a></td><td class="w-pc"><span class="price-value">¥ 18</span></td><td class="w-pc"><span class="stock-value">67 件</span></td><td class="c-buy" style="text-align:right"><a class="btn-buy-it" href="javascript:void(0)" data-pi="6">🛒 购买</a></td></tr><tr><td><a class="item-link" href="javascript:void(0)" data-pi="7"><span class="item-icon">🤖</span><span class="item-name"><span class="item-tag">[1h售后] </span>Gemini Pro 成品号 · 随机地区美国居多 · 纯手工<span class="src-badge" style="background:#007aff">黄龙海外账号</span></span></a></td><td class="w-pc"><span class="price-value">¥ 36</span></td><td class="w-pc"><span class="stock-value">9 件</span></td><td class="c-buy" style="text-align:right"><a class="btn-buy-it" href="javascript:void(0)" data-pi="7">🛒 购买</a></td></tr><tr><td><a class="item-link" href="javascript:void(0)" data-pi="8"><span class="item-icon">𝕏</span><span class="item-name"><span class="item-tag">[1h售后] </span>X / Twitter 蓝V会员续费 1个月 · 店长推荐<span class="src-badge" style="background:#007aff">黄龙海外账号</span></span></a></td><td class="w-pc"><span class="price-value">¥ 66</span></td><td class="w-pc"><span class="stock-value">2 件</span></td><td class="c-buy" style="text-align:right"><a class="btn-buy-it" href="javascript:void(0)" data-pi="8">🛒 购买</a></td></tr><tr><td><a class="item-link" href="javascript:void(0)" data-pi="9"><span class="item-icon">🤖</span><span class="item-name"><span class="item-tag">[1h售后] </span>ChatGPT Plus 续费1个月 · 正规iOS充值【质保】<span class="src-badge" style="background:#007aff">黄龙海外账号</span></span></a></td><td class="w-pc"><span class="price-value">¥ 160</span></td><td class="w-pc"><span class="stock-value">13 件</span></td><td class="c-buy" style="text-align:right"><a class="btn-buy-it" href="javascript:void(0)" data-pi="9">🛒 购买</a></td></tr><tr><td><a class="item-link" href="javascript:void(0)" data-pi="10"><span class="item-icon">🧠</span><span class="item-name"><span class="item-tag">[1h售后] </span>Claude Pro 1个月 · 订阅续费 · 超级推荐<span class="src-badge" style="background:#007aff">黄龙海外账号</span></span></a></td><td class="w-pc"><span class="price-value">¥ 210</span></td><td class="w-pc"><span class="stock-value">8 件</span></td><td class="c-buy" style="text-align:right"><a class="btn-buy-it" href="javascript:void(0)" data-pi="10">🛒 购买</a></td></tr><tr><td><a class="item-link" href="javascript:void(0)" data-pi="11"><span class="item-icon">💚</span><span class="item-name"><span class="item-tag">[TG直购] </span>微信账号 · 国内外全天在线<span class="src-badge" style="background:#8b5cf6">国内号商TG</span></span></a></td><td class="w-pc"><span class="price-value">私聊询价</span></td><td class="w-pc"><span class="stock-dim">长期有货</span></td><td class="c-buy" style="text-align:right"><a class="btn-buy-it" href="javascript:void(0)" data-pi="11">🛒 购买</a></td></tr><tr><td><a class="item-link" href="javascript:void(0)" data-pi="12"><span class="item-icon">📱</span><span class="item-name"><span class="item-tag">[TG直购] </span>手机卡 · 国内外实卡<span class="src-badge" style="background:#8b5cf6">国内号商TG</span></span></a></td><td class="w-pc"><span class="price-value">私聊询价</span></td><td class="w-pc"><span class="stock-dim">长期有货</span></td><td class="c-buy" style="text-align:right"><a class="btn-buy-it" href="javascript:void(0)" data-pi="12">🛒 购买</a></td></tr><tr><td><a class="item-link" href="javascript:void(0)" data-pi="13"><span class="item-icon">🔮</span><span class="item-name"><span class="item-tag">[永久ID] </span>天涯社交账号 · 永久ID · 客服 @id1800 @id3900<span class="src-badge" style="background:#f59e0b">天涯账号TG</span></span></a></td><td class="w-pc"><span class="price-value">私聊询价</span></td><td class="w-pc"><span class="stock-dim">出货通知</span></td><td class="c-buy" style="text-align:right"><a class="btn-buy-it" href="javascript:void(0)" data-pi="13">🛒 购买</a></td></tr></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="features">
+        <div class="feature"><span class="fi">🌍</span><b>全球号码池</b><span>30+ 国家 / 100万+ 号码</span></div>
+        <div class="feature"><span class="fi">🔄</span><b>每日更新</b><span>新号码天天上架</span></div>
+        <div class="feature"><span class="fi">⚡</span><b>API 对接</b><span>注册软件开发友好</span></div>
+        <div class="feature"><span class="fi">💳</span><b>灵活支付</b><span>钱包 / 银行卡 / 加密货币</span></div>
+        <div class="feature"><span class="fi">👑</span><b>VIP 计划</b><span>老客户专属权益</span></div>
+        <div class="feature"><span class="fi">🤝</span><b>推广返佣</b><span>邀请好友轻松赚</span></div>
+      </div>
+    </section>
+  </div>
+
+  <div class="compare">
+    <h3>⚖️ 三种购买渠道，怎么选？</h3>
+    <div class="sub">同一类商品在不同渠道的价格、售后和适合人群 —— 买之前先看这张表，能帮你省不少钱</div>
+    <div class="channel-cards">
+      <div class="channel-card">
+        <div class="ch-head">🤖 全自动平台 · SMS-BUS</div>
+        <p>接码 $0.12 起，收到短信才扣费，支持 API 对接、钱包 / 银行卡 / 加密货币充值。</p>
+        <span class="ch-fit" style="background:#10b981">适合：批量注册 / 开发者</span>
+      </div>
+      <div class="channel-card">
+        <div class="ch-head">🛒 平台托管 · 黄龙acc199</div>
+        <p>购物车自助下单、订单查询，多数商品 1h 售后，AI 工具 / 邮箱品类最全。</p>
+        <span class="ch-fit" style="background:#007aff">适合：要售后的单品买家</span>
+      </div>
+      <div class="channel-card">
+        <div class="ch-head">💬 TG 人工 · 号商直购</div>
+        <p>微信 / 抖音 / 支付宝 / 天涯号，私聊议价、先验货后付款，可定制需求。</p>
+        <span class="ch-fit" style="background:#8b5cf6">适合：批量定制 / 老手</span>
+      </div>
+    </div>
+    <table class="compare-table">
+      <thead><tr><th>短信验证 / 账号场景</th><th>推荐渠道</th><th>价格</th><th>售后保障</th></tr></thead>
+      <tbody>
+        <tr><td>Telegram 接码</td><td><span class="cmp-src" style="background:#10b981">SMS-BUS</span></td><td class="cmp-price">$0.33 起 ≈¥2.4</td><td class="cmp-note">未收到短信不扣款</td></tr>
+        <tr><td>WhatsApp 接码</td><td><span class="cmp-src" style="background:#10b981">SMS-BUS</span></td><td class="cmp-price">$0.48 起 ≈¥3.5</td><td class="cmp-note">未收到短信不扣款</td></tr>
+        <tr><td>Google / Gmail 接码</td><td><span class="cmp-src" style="background:#10b981">SMS-BUS</span></td><td class="cmp-price">$0.21 起 ≈¥1.5</td><td class="cmp-note">未收到短信不扣款</td></tr>
+        <tr><td>TikTok / Douyin 接码</td><td><span class="cmp-src" style="background:#10b981">SMS-BUS</span></td><td class="cmp-price">$0.14 起 ≈¥1.0</td><td class="cmp-note">未收到短信不扣款</td></tr>
+        <tr><td>小红书接码</td><td><span class="cmp-src" style="background:#10b981">SMS-BUS</span></td><td class="cmp-price">$0.12 起 ≈¥0.9</td><td class="cmp-note">未收到短信不扣款</td></tr>
+        <tr><td>Codex / ChatGPT 接码 · 短效 1-3 次</td><td><span class="cmp-src" style="background:#007aff">黄龙acc199</span></td><td class="cmp-price">¥ 7</td><td class="cmp-note">1h 售后</td></tr>
+        <tr><td>Codex 接码 · 长效 25-30 天 · 店长推荐</td><td><span class="cmp-src" style="background:#007aff">黄龙acc199</span></td><td class="cmp-price">¥ 17</td><td class="cmp-note">1h 售后</td></tr>
+        <tr><td>微信 / 抖音 / 支付宝 / 手机卡</td><td><span class="cmp-src" style="background:#8b5cf6">TG国内号商</span></td><td class="cmp-price">私聊询价</td><td class="cmp-note">先验货后付款</td></tr>
+        <tr><td>天涯社交账号 · 永久 ID</td><td><span class="cmp-src" style="background:#f59e0b">TG天涯</span></td><td class="cmp-price">私聊询价</td><td class="cmp-note">先验货后付款</td></tr>
+          </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="features">
+        <div class="feature"><span class="fi">🌍</span><b>全球号码池</b><span>30+ 国家 / 100万+ 号码</span></div>
+        <div class="feature"><span class="fi">🔄</span><b>每日更新</b><span>新号码天天上架</span></div>
+        <div class="feature"><span class="fi">⚡</span><b>API 对接</b><span>注册软件开发友好</span></div>
+        <div class="feature"><span class="fi">💳</span><b>灵活支付</b><span>钱包 / 银行卡 / 加密货币</span></div>
+        <div class="feature"><span class="fi">👑</span><b>VIP 计划</b><span>老客户专属权益</span></div>
+        <div class="feature"><span class="fi">🤝</span><b>推广返佣</b><span>邀请好友轻松赚</span></div>
+      </div>
+    </section>
+  </div>
+
+  <div class="compare">
+    <h3>⚖️ 三种购买渠道，怎么选？</h3>
+    <div class="sub">同一类商品在不同渠道的价格、售后和适合人群 —— 买之前先看这张表，能帮你省不少钱</div>
+    <div class="channel-cards">
+      <div class="channel-card">
+        <div class="ch-head">🤖 全自动平台 · SMS-BUS</div>
+        <p>接码 $0.12 起，收到短信才扣费，支持 API 对接、钱包 / 银行卡 / 加密货币充值。</p>
+        <span class="ch-fit" style="background:#10b981">适合：批量注册 / 开发者</span>
+      </div>
+      <div class="channel-card">
+        <div class="ch-head">🛒 平台托管 · 黄龙acc199</div>
+        <p>购物车自助下单、订单查询，多数商品 1h 售后，AI 工具 / 邮箱品类最全。</p>
+        <span class="ch-fit" style="background:#007aff">适合：要售后的单品买家</span>
+      </div>
+      <div class="channel-card">
+        <div class="ch-head">💬 TG 人工 · 号商直购</div>
+        <p>微信 / 抖音 / 支付宝 / 天涯号，私聊议价、先验货后付款，可定制需求。</p>
+        <span class="ch-fit" style="background:#8b5cf6">适合：批量定制 / 老手</span>
+      </div>
+    </div>
+    <table class="compare-table">
+      <thead><tr><th>短信验证 / 账号场景</th><th>推荐渠道</th><th>价格</th><th>售后保障</th></tr></thead>
+      <tbody>
+        <tr><td>Telegram 接码</td><td><span class="cmp-src" style="background:#10b981">SMS-BUS</span></td><td class="cmp-price">$0.33 起 ≈¥2.4</td><td class="cmp-note">未收到短信不扣款</td></tr>
+        <tr><td>WhatsApp 接码</td><td><span class="cmp-src" style="background:#10b981">SMS-BUS</span></td><td class="cmp-price">$0.48 起 ≈¥3.5</td><td class="cmp-note">未收到短信不扣款</td></tr>
+        <tr><td>Google / Gmail 接码</td><td><span class="cmp-src" style="background:#10b981">SMS-BUS</span></td><td class="cmp-price">$0.21 起 ≈¥1.5</td><td class="cmp-note">未收到短信不扣款</td></tr>
+        <tr><td>TikTok / Douyin 接码</td><td><span class="cmp-src" style="background:#10b981">SMS-BUS</span></td><td class="cmp-price">$0.14 起 ≈¥1.0</td><td class="cmp-note">未收到短信不扣款</td></tr>
+        <tr><td>小红书接码</td><td><span class="cmp-src" style="background:#10b981">SMS-BUS</span></td><td class="cmp-price">$0.12 起 ≈¥0.9</td><td class="cmp-note">未收到短信不扣款</td></tr>
+        <tr><td>Codex / ChatGPT 接码 · 短效 1-3 次</td><td><span class="cmp-src" style="background:#007aff">黄龙acc199</span></td><td class="cmp-price">¥ 7</td><td class="cmp-note">1h 售后</td></tr>
+        <tr><td>Codex 接码 · 长效 25-30 天 · 店长推荐</td><td><span class="cmp-src" style="background:#007aff">黄龙acc199</span></td><td class="cmp-price">¥ 17</td><td class="cmp-note">1h 售后</td></tr>
+        <tr><td>微信 / 抖音 / 支付宝 / 手机卡</td><td><span class="cmp-src" style="background:#8b5cf6">TG国内号商</span></td><td class="cmp-price">私聊询价</td><td class="cmp-note">先验货后付款</td></tr>
+        <tr><td>天涯社交账号 · 永久 ID</td><td><span class="cmp-src" style="background:#f59e0b">TG天涯</span></td><td class="cmp-price">私聊询价</td><td class="cmp-note">先验货后付款</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="sec-title center">❓ 常见问题</h3>
+  <div class="faq">
+    <details open>
+      <summary><span class="qi">🛒</span>怎么下单买号 / 接码？</summary>
+      <div class="faq-a">点击任意商品的「购买」按钮 → 阅读确认弹窗里的注意事项 → 跳转到对应平台付款。<b>acc199</b> 支持站内购物车下单并在「订单查询」查卡密；<b>SMS-BUS</b> 在站内直接取号收短信；<b>TG 商家</b>私聊下单。</div>
+    </details>
+    <details>
+      <summary><span class="qi">🔐</span>账号拿到手，第一件事做什么？</summary>
+      <div class="faq-a"><b>立即修改密码并开启 2FA 两步验证</b>，绑定自己的密保邮箱 / 手机。海外账号（Google / FB / TK 等）务必先挂<b>对应地区的干净 IP</b> 再登录，切忌异地秒登，极易触发风控。</div>
+    </details>
+    <details>
+      <summary><span class="qi">📵</span>接码没收到短信，扣不扣钱？</summary>
+      <div class="faq-a"><b>SMS-BUS 未收到短信不扣款</b>，可以放心取号；号码一般 5 分钟内有效，取到号请尽快使用。<b>acc199 的 Codex 接码</b>分短效（1-3 次 / 15-30 分钟）和长效（25-30 天）两种，按商品页说明使用。</div>
+    </details>
+    <details>
+      <summary><span class="qi">⏱️</span>售后是多久？出问题找谁？</summary>
+      <div class="faq-a">acc199 多数商品为 <b>1 小时售后</b>，超出售后时间概不退款，卡密请及时保存；SMS-BUS 未收码不收费；TG 商家交易的售后以卖家约定为准，<b>务必先验货后付款</b>，客服：国内号商 @eqqqq、天涯 @id1800 / @id3900。</div>
+    </details>
+    <details>
+      <summary><span class="qi">💳</span>支持什么付款方式？</summary>
+      <div class="faq-a">SMS-BUS：电子钱包 / 银行卡 / 加密货币，还有 VIP 忠诚计划和推广返佣；acc199：站内余额充值后下单；TG 商家：私聊协商。TG 转账没有平台担保，<b>大额务必分批验货</b>。</div>
+    </details>
+    <details>
+      <summary><span class="qi">🛡️</span>这个站是卖家吗？安全吗？</summary>
+      <div class="faq-a">本站只是<b>聚合导航页，不直接销售任何商品</b>。所有交易都在来源平台完成，价格与库存以来源平台实时数据为准。购买前请仔细阅读各平台规则，商品仅供学习测试使用，请遵守当地法律法规。</div>
+    </details>
+  </div>
+
+  <footer>
+    © 2026 聚合账号商城 · 本站仅为导航聚合页，不直接销售任何商品，交易均在各来源平台完成，价格与库存以来源为准。<br>
+    商品仅供学习测试使用，请遵守当地法律法规，请勿用于违法活动。
+  </footer>
+</main>
+<div class="modal-mask" id="modalMask" aria-hidden="true">
+  <div class="modal" role="dialog" aria-modal="true">
+    <div class="m-head">
+      <span class="m-icon" id="mIcon">📦</span>
+      <div>
+        <h4 id="mName"></h4>
+        <span class="src-badge" id="mSrc" style="margin-left:0;margin-top:4px;display:inline-block"></span>
+      </div>
+    </div>
+    <div class="m-price" id="mPrice"></div>
+    <ul id="mNotes"></ul>
+    <div class="m-btns">
+      <button class="m-go" id="mGo" type="button">✔️ 好的，我知道了</button>
+      <button class="m-stay" id="mStay" type="button">再逛逛</button>
+    </div>
+    <p class="m-tip">购买前请确认已知悉上述注意事项</p>
+  </div>
+</div>
+<div class="modal-mask" id="couponMask" aria-hidden="true">
+  <div class="modal" role="dialog" aria-modal="true">
+    <div class="coupon-top">🎉</div>
+    <h4 class="coupon-title">新人专享福利</h4>
+    <div class="coupon-amt"><small>¥</small>5</div>
+    <div class="coupon-sub">全场商品通用 · 无门槛抵扣</div>
+    <div class="coupon-timer">券有效期 <b id="couponT">10:00</b></div>
+    <div class="coupon-code" id="couponCode"></div>
+    <button class="m-go coupon-btn" id="couponBtn" type="button">立即领取</button>
+    <button class="coupon-skip" id="couponSkip" type="button">暂不需要，先随便看看</button>
+  </div>
+</div>
+
+<div class="bcast" id="bcast">
+  <span class="b-fire">🔥</span>
+  <div class="bc-body">
+    <span class="bc-name" id="bcName"></span> <span class="bc-time" id="bcTime"></span>购买<br>
+    <span class="bc-item" id="bcItem"></span>
+  </div>
+  <button class="bcast-x" id="bcastX" type="button">✕</button>
+</div>
+
+<div class="splash" id="splash">
+  <div class="splash-logo">🌐</div>
+  <div class="splash-name">聚合账号商城<small>接码 · 海外账号 · 国内号商 一站聚合</small></div>
+  <div class="splash-bar"><i></i></div>
+</div>
+</body>
+<script>
+/* ================= 数据 ================= */
+const SOURCES = {
+  smsbus:{name:'SMS-BUS', color:'#10b981', url:'https://sms-bus.com/'},
+  acc199:{name:'黄龙海外账号', color:'#007aff', url:'https://acc199.com/'},
+  tg1:{name:'国内号商TG', color:'#8b5cf6', url:'https://t.me/qazYSJ888'},
+  tg2:{name:'天涯账号TG', color:'#f59e0b', url:'https://t.me/SSS40222'}
+};
+const CATS = [
+  {id:'rec', icon:'⭐', name:'推荐商品', noChildren:true},
+  {id:'sms', icon:'📱', name:'接码平台', src:'smsbus', children:[
+    {id:'sms-wa', icon:'💬', name:'WhatsApp'},
+    {id:'sms-tg', icon:'✈️', name:'Telegram'},
+    {id:'sms-tk', icon:'🎵', name:'TikTok/Douyin'},
+    {id:'sms-gg', icon:'🔍', name:'Google/Gmail'},
+    {id:'sms-az', icon:'📦', name:'Amazon'},
+    {id:'sms-ms', icon:'🪟', name:'Microsoft'},
+    {id:'sms-red', icon:'📕', name:'小红书'}
+  ]},
+  {id:'acc', icon:'🌏', name:'海外账号批发', src:'acc199', children:[
+    {id:'acc-gmail', icon:'✉️', name:'谷歌邮箱'},
+    {id:'acc-ai', icon:'🤖', name:'AI 工具'},
+    {id:'acc-x', icon:'𝕏', name:'Twitter/X'},
+    {id:'acc-cl', icon:'🧠', name:'Claude'}
+  ]},
+  {id:'cn', icon:'🇨🇳', name:'国内号商', src:'tg1', children:[
+    {id:'cn-wx', icon:'💚', name:'微信'},
+    {id:'cn-dy', icon:'🎬', name:'抖音'},
+    {id:'cn-zfb', icon:'💳', name:'支付宝'},
+    {id:'cn-card', icon:'📱', name:'手机卡'},
+    {id:'cn-red', icon:'📕', name:'小红书'}
+  ]},
+  {id:'ty', icon:'🌅', name:'天涯账号', src:'tg2', children:[
+    {id:'ty-acc', icon:'🔮', name:'天涯社交账号'}
+  ]}
+];
+const A = 'https://acc199.com/item?id=';
+const PRODUCTS = [
+  /* ---- SMS-BUS 接码 ---- */
+  {cat:'sms', sub:'sms-wa', icon:'💬', tag:'[全球号码]', name:'WhatsApp 接码 · 全球号码池', src:'smsbus', price:'¥3.5', sub2:'$0.48 起', pn:3.5, stock:'286,728', unit:' pcs', feat:1, buy:'https://sms-bus.com/'},
+  {cat:'sms', sub:'sms-tg', icon:'✈️', tag:'[全球号码]', name:'Telegram 接码 · 全球号码池', src:'smsbus', price:'¥2.4', sub2:'$0.33 起', pn:2.4, stock:'549', unit:' pcs', feat:1, buy:'https://sms-bus.com/'},
+  {cat:'sms', sub:'sms-tk', icon:'🎵', tag:'[全球号码]', name:'TikTok / Douyin 接码', src:'smsbus', price:'¥1.0', sub2:'$0.14 起', pn:1.0, stock:'98,741', unit:' pcs', buy:'https://sms-bus.com/'},
+  {cat:'sms', sub:'sms-gg', icon:'🔍', tag:'[全球号码]', name:'Google / YouTube / Gmail 接码', src:'smsbus', price:'¥1.5', sub2:'$0.21 起', pn:1.5, stock:'634,936', unit:' pcs', feat:1, buy:'https://sms-bus.com/'},
+  {cat:'sms', sub:'sms-az', icon:'📦', tag:'[全球号码]', name:'Amazon 接码', src:'smsbus', price:'¥2.0', sub2:'$0.28 起', pn:2.0, stock:'133,218', unit:' pcs', buy:'https://sms-bus.com/'},
+  {cat:'sms', sub:'sms-ms', icon:'🪟', tag:'[全球号码]', name:'Microsoft 接码', src:'smsbus', price:'¥1.6', sub2:'$0.22 起', pn:1.6, stock:'94,983', unit:' pcs', buy:'https://sms-bus.com/'},
+  {cat:'sms', sub:'sms-red', icon:'📕', tag:'[全球号码]', name:'REDnote / 小红书 接码', src:'smsbus', price:'¥0.9', sub2:'$0.12 起', pn:0.9, stock:'35,915', unit:' pcs', feat:1, buy:'https://sms-bus.com/'},
+  /* ---- acc199 海外账号 ---- */
+  {cat:'acc', sub:'acc-gmail', icon:'✉️', tag:'[1h售后]', name:'GG 域名邮箱，YouTube专用', src:'acc199', price:'¥ 9.1', pn:9.1, stock:'136', feat:1, buy:A+'71709'},
+  {cat:'acc', sub:'acc-ai', icon:'🤖', tag:'[1h售后]', name:'Codex接码 · 长效 25-30天 · 店长推荐', src:'acc199', price:'¥ 17', pn:17, stock:'17', feat:1, buy:A+'59901'},
+  {cat:'acc', sub:'acc-gmail', icon:'✉️', tag:'[1h售后]', name:'Gmail 5年左右老号 · 美国地区带密保 · 优质推荐', src:'acc199', price:'¥ 18', pn:18, stock:'67', feat:1, buy:A+'56507'},
+  {cat:'acc', sub:'acc-gmail', icon:'✉️', tag:'[1h售后]', name:'Gmail 2022-2024年 · 随机IP · 开启2FA', src:'acc199', price:'¥ 19', pn:19, stock:'1', buy:A+'61023'},
+  {cat:'acc', sub:'acc-gmail', icon:'✉️', tag:'[1h售后]', name:'Gmail 英国区 · 谷歌商店账号', src:'acc199', price:'¥ 30', pn:30, stock:'19', buy:A+'71711'},
+  {cat:'acc', sub:'acc-gmail', icon:'✉️', tag:'[1h售后]', name:'Gmail 日本区 · 谷歌商店账号', src:'acc199', price:'¥ 30', pn:30, stock:'10', buy:A+'71712'},
+  {cat:'acc', sub:'acc-gmail', icon:'✉️', tag:'[1h售后]', name:'Gmail 越南区 · 谷歌商店账号', src:'acc199', price:'¥ 30', pn:30, stock:'2', buy:A+'71713'},
+  {cat:'acc', sub:'acc-ai', icon:'🤖', tag:'[1h售后]', name:'Gemini Pro 成品号 · 随机地区美国居多 · 纯手工', src:'acc199', price:'¥ 36', pn:36, stock:'9', feat:1, buy:A+'53156'},
+  {cat:'acc', sub:'acc-ai', icon:'🤖', tag:'[1h售后]', name:'Gemini Pro 充值续费 · CDK自助开通 · 1年会员', src:'acc199', price:'¥ 40', pn:40, stock:'8', buy:A+'60129'},
+  {cat:'acc', sub:'acc-x', icon:'𝕏', tag:'[1h售后]', name:'X / Twitter 蓝V会员续费 1个月 · 店长推荐', src:'acc199', price:'¥ 66', pn:66, stock:'2', feat:1, buy:A+'59512'},
+  {cat:'acc', sub:'acc-ai', icon:'🤖', tag:'[1h售后]', name:'ChatGPT Plus 续费1个月 · 正规iOS充值【质保】', src:'acc199', price:'¥ 160', pn:160, stock:'13', feat:1, buy:A+'59905'},
+  {cat:'acc', sub:'acc-cl', icon:'🧠', tag:'[1h售后]', name:'Claude Pro 1个月 · 订阅续费 · 超级推荐', src:'acc199', price:'¥ 210', pn:210, stock:'8', feat:1, buy:A+'54318'},
+  {cat:'acc', sub:'acc-x', icon:'𝕏', tag:'[1h售后]', name:'X-Premium+ 带 Grok 权限', src:'acc199', price:'¥ 210', pn:210, stock:'38', buy:A+'55248'},
+  {cat:'acc', sub:'acc-x', icon:'𝕏', tag:'[1h售后]', name:'X 3个月蓝V续费 · 使用Grok购买高级版本', src:'acc199', price:'¥ 221', pn:221, stock:'27', buy:A+'59511'},
+  {cat:'acc', sub:'acc-x', icon:'𝕏', tag:'[1h售后]', name:'X 12个月蓝V · 赠送方式折扣会员', src:'acc199', price:'¥ 555', pn:555, stock:'5', buy:A+'59510'},
+  {cat:'acc', sub:'acc-cl', icon:'🧠', tag:'[1h售后]', name:'Claude Max20x 成品号 · 续费联系客服下单', src:'acc199', price:'¥ 1650', pn:1650, stock:'1', buy:A+'54320'},
+  {cat:'acc', sub:'acc-ai', icon:'🤖', tag:'[1h售后]', name:'Codex接码 · 短效1-3次 · 15-30分钟', src:'acc199', price:'¥ 7', pn:7, stock:'0', buy:A+'59900'},
+  {cat:'acc', sub:'acc-gmail', icon:'✉️', tag:'[1h售后]', name:'Gmail 4年左右老号 · 密保2FA · 带手机号接码API', src:'acc199', price:'¥ 20', pn:20, stock:'0', buy:A+'58756'},
+  {cat:'acc', sub:'acc-ai', icon:'🤖', tag:'[1h售后]', name:'ChatGPT Plus 纯手工账号 · 镇店之宝优质推荐', src:'acc199', price:'¥ 66', pn:66, stock:'0', buy:A+'59906'},
+  {cat:'acc', sub:'acc-ai', icon:'🤖', tag:'[1h售后]', name:'GPT PRO 5X 埃及区代充 1个月', src:'acc199', price:'¥ 900', pn:900, stock:'0', buy:A+'59902'},
+  /* ---- TG 国内号商 ---- */
+  {cat:'cn', sub:'cn-wx', icon:'💚', tag:'[TG直购]', name:'微信账号 · 国内外全天在线', src:'tg1', price:'私聊询价', pn:null, stock:'长期有货', dim:1, feat:1, buy:'https://t.me/qazYSJ888'},
+  {cat:'cn', sub:'cn-dy', icon:'🎬', tag:'[TG直购]', name:'抖音账号 · 各类目', src:'tg1', price:'私聊询价', pn:null, stock:'长期有货', dim:1, buy:'https://t.me/qazYSJ888'},
+  {cat:'cn', sub:'cn-zfb', icon:'💳', tag:'[TG直购]', name:'支付宝账号', src:'tg1', price:'私聊询价', pn:null, stock:'长期有货', dim:1, buy:'https://t.me/qazYSJ888'},
+  {cat:'cn', sub:'cn-card', icon:'📱', tag:'[TG直购]', name:'手机卡 · 国内外实卡', src:'tg1', price:'私聊询价', pn:null, stock:'长期有货', dim:1, feat:1, buy:'https://t.me/qazYSJ888'},
+  {cat:'cn', sub:'cn-red', icon:'📕', tag:'[TG直购]', name:'小红书账号', src:'tg1', price:'私聊询价', pn:null, stock:'长期有货', dim:1, buy:'https://t.me/qazYSJ888'},
+  /* ---- TG 天涯 ---- */
+  {cat:'ty', sub:'ty-acc', icon:'🔮', tag:'[永久ID]', name:'天涯社交账号 · 永久ID · 客服 @id1800 @id3900', src:'tg2', price:'私聊询价', pn:null, stock:'出货通知', dim:1, feat:1, buy:'https://t.me/SSS40222'}
+];
+/* ================= 渲染 ================= */
+const state = {cat:'rec', q:''};
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+function catCount(cid){
+  if(cid === 'rec') return PRODUCTS.filter(p => p.feat).length;
+  return PRODUCTS.filter(p => p.cat === cid || p.sub === cid).length;
+}
+function subCount(sid){
+  return PRODUCTS.filter(p => p.sub === sid).length;
+}
+function match(p){
+  if(state.q){
+    const q = state.q.toLowerCase();
+    const hay = (p.name + ' ' + (SOURCES[p.src]?.name || '')).toLowerCase();
+    if(!hay.includes(q)) return false;
+  }
+  if(state.cat === 'rec') return !!p.feat;
+  return p.cat === state.cat || p.sub === state.cat;
+}
+function renderSidebar(){
+  const nav = document.getElementById('catNav');
+  let h = '';
+  for(const c of CATS){
+    const hasKids = c.children && c.children.length;
+    const active = state.cat === c.id ? ' active' : '';
+    const open = hasKids && (state.cat === c.id || c.children.some(k => k.id === state.cat)) ? ' open' : '';
+    h += '<div class="cat-item">';
+    h += '<a class="cat-link' + active + open + '" data-cat="' + c.id + '">';
+    h += '<span class="cat-icon">' + c.icon + '</span><span>' + esc(c.name) + '</span>';
+    if(hasKids) h += '<span class="cat-arrow">▶</span>';
+    h += '<span class="cat-badge">' + catCount(c.id) + '</span></a>';
+    if(hasKids){
+      h += '<div class="cat-children' + (open ? ' show' : '') + '">';
+      for(const k of c.children){
+        const ka = state.cat === k.id ? ' active' : '';
+        h += '<a class="cat-child' + ka + '" data-cat="' + k.id + '"><span>' + k.icon + '</span><span>' + esc(k.name) + '</span><span class="cat-badge">' + subCount(k.id) + '</span></a>';
+      }
+      h += '</div>';
+    }
+    h += '</div>';
+  }
+  nav.innerHTML = h;
+  nav.querySelectorAll('[data-cat]').forEach(el => {
+    el.addEventListener('click', e => {
+      e.preventDefault();
+      state.cat = el.dataset.cat;
+      renderAll();
+      window.scrollTo({top: document.getElementById('catNav').offsetTop - 80, behavior:'smooth'});
+    });
+  });
+}
+function renderTable(){
+  const list = PRODUCTS.filter(match);
+  const tbody = document.getElementById('tbody');
+  if(!list.length){
+    tbody.innerHTML = '<tr class="empty-row"><td colspan="4">😕 该分类暂无匹配商品，换个关键词试试</td></tr>';
+  } else {
+    tbody.innerHTML = list.map((p, i) => {
+      const s = SOURCES[p.src];
+      const stockHtml = p.dim
+        ? '<span class="stock-dim">' + esc(p.stock) + '</span>'
+        : '<span class="stock-value">' + esc(p.stock) + (p.unit || ' 件') + '</span>';
+      const priceHtml = p.sub2
+        ? '<span class="price-value">' + esc(p.price) + '</span><span class="price-sub">' + esc(p.sub2) + '</span>'
+        : '<span class="price-value">' + esc(p.price) + '</span>';
+      return '<tr>' +
+        '<td><a class="item-link" href="javascript:void(0)" data-pi="' + i + '">' +
+          '<span class="item-icon">' + p.icon + '</span>' +
+          '<span class="item-name"><span class="item-tag">' + esc(p.tag) + ' </span>' + esc(p.name) +
+          '<span class="src-badge" style="background:' + s.color + '">' + esc(s.name) + '</span></span></a></td>' +
+        '<td class="w-pc">' + priceHtml + '</td>' +
+        '<td class="w-pc">' + stockHtml + '</td>' +
+        '<td class="c-buy" style="text-align:right"><a class="btn-buy-it" href="javascript:void(0)" data-pi="' + i + '">🛒 购买</a></td>' +
+      '</tr>';
+    }).join('');
+  }
+  const c = CATS.find(x => x.id === state.cat) || CATS[0];
+  let title = c.icon + ' ' + c.name;
+  const kid = c.children ? c.children.find(k => k.id === state.cat) : null;
+  if(kid) title = kid.icon + ' ' + kid.name;
+  document.getElementById('catTitle').textContent = title;
+  document.getElementById('catCount').textContent = '共 ' + list.length + ' 件商品';
+}
+function renderAll(){ renderSidebar(); renderTable(); }
+document.getElementById('searchInput').addEventListener('input', e => {
+  state.q = e.target.value.trim();
+  renderTable();
+});
+const hm = location.hash.match(/cat=([\w-]+)/);
+if(hm && (CATS.some(c => c.id === hm[1]) || CATS.some(c => c.children && c.children.some(k => k.id === hm[1])))) state.cat = hm[1];
+renderAll();
+
+/* ================= 购买确认弹窗 ================= */
+const MODAL_NOTES = {
+  smsbus:[
+    '<b>未收到短信不扣款</b>，收到验证码才计费，放心取号',
+    '号码一般 <b>5 分钟内有效</b>，取到号请尽快使用',
+    '支持钱包 / 银行卡 / 加密货币充值，可开发对接 API'
+  ],
+  acc199:[
+    '卡密请及时保存，后台不定时删除记录',
+    '拿到账号请<b>立即改密 + 开 2FA</b>，海外号先挂对应地区 IP',
+    '多数商品 <b>1h 售后</b>，超出售后时间概不退款'
+  ],
+  tg1:[
+    '联系卖家 <b>@eqqqq</b> 私聊价格与售后，全天在线',
+    '<b>先验货后付款</b>，大额建议分批交易',
+    '可议价，支持微信 / 抖音 / 支付宝 / 手机卡定制需求'
+  ],
+  tg2:[
+    '永久 ID，客服 <b>@id1800 / @id3900</b>',
+    '出货以频道通知为准，<b>先验货后付款</b>'
+  ]
+};
+const mask = document.getElementById('modalMask');
+function openModal(p){
+  const s = SOURCES[p.src];
+  document.getElementById('mIcon').textContent = p.icon;
+  document.getElementById('mName').textContent = p.name;
+  const sb = document.getElementById('mSrc');
+  sb.textContent = s.name;
+  sb.style.background = s.color;
+  document.getElementById('mPrice').innerHTML = p.price + (p.sub2 ? ' <small>' + p.sub2 + '</small>' : '');
+  document.getElementById('mNotes').innerHTML = (MODAL_NOTES[p.src] || []).map(n => '<li>' + n + '</li>').join('');
+  const go = document.getElementById('mGo');
+  go.textContent = '✔️ 好的，我知道了';
+  mask.classList.add('show');
+  mask.setAttribute('aria-hidden','false');
+}
+function closeModal(){
+  mask.classList.remove('show');
+  mask.setAttribute('aria-hidden','true');
+}
+document.getElementById('tbody').addEventListener('click', e => {
+  const b = e.target.closest('[data-pi]');
+  if(b) openModal(PRODUCTS[+b.dataset.pi]);
+});
+document.getElementById('mStay').addEventListener('click', closeModal);
+document.getElementById('mGo').addEventListener('click', closeModal);
+mask.addEventListener('click', e => { if(e.target === mask) closeModal(); });
+document.addEventListener('keydown', e => { if(e.key === 'Escape') closeModal(); });
+if(/demo-modal/.test(location.hash)) openModal(PRODUCTS[0]);
+
+/* ================= 停留节奏编排 ================= */
+function pad(n){ return String(n).padStart(2,'0'); }
+/* 1. 开屏 1.4s 后淡出 */
+const splash = document.getElementById('splash');
+setTimeout(() => {
+  splash.classList.add('hide');
+  setTimeout(() => splash.remove(), 500);
+}, 1400);
+/* 2. 顶部倒计时（至当天 24 点） */
+function tickDeal(){
+  const now = new Date();
+  const end = new Date(now); end.setHours(23,59,59,999);
+  const s = Math.max(0, Math.floor((end - now)/1000));
+  document.getElementById('dealT').textContent = pad(Math.floor(s/3600)) + ':' + pad(Math.floor(s%3600/60)) + ':' + pad(s%60);
+}
+tickDeal(); setInterval(tickDeal, 1000);
+/* 3. 成交播报：每 6 秒一条，弹 4 秒收走 */
+const B_NAMES = ['张**','李**','王**','陈**','刘**','杨**','黄**','赵**','吴**','周**'];
+const B_TIMES = ['刚刚','1分钟前','2分钟前','3分钟前','5分钟前'];
+const bcast = document.getElementById('bcast');
+let bcastOff = false;
+function showBcast(){
+  if(bcastOff || mask.classList.contains('show') || couponMask.classList.contains('show')) return;
+  const pool = PRODUCTS.filter(x => x.src === 'acc199' || x.src === 'smsbus');
+  const it = pool[Math.floor(Math.random()*pool.length)];
+  document.getElementById('bcName').textContent = B_NAMES[Math.floor(Math.random()*B_NAMES.length)];
+  document.getElementById('bcTime').textContent = B_TIMES[Math.floor(Math.random()*B_TIMES.length)];
+  document.getElementById('bcItem').textContent = it.name.length > 20 ? it.name.slice(0,20) + '…' : it.name;
+  bcast.classList.add('show');
+  setTimeout(() => bcast.classList.remove('show'), 4000);
+}
+setTimeout(showBcast, 3200);
+setInterval(showBcast, 6000);
+document.getElementById('bcastX').addEventListener('click', () => { bcastOff = true; bcast.classList.remove('show'); });
+/* 4. 新人券：开屏结束后约 5 秒弹一次 */
+const couponMask = document.getElementById('couponMask');
+const cKey = 'hj_coupon_v1';
+let couponTimer = null;
+function showCoupon(){
+  if(localStorage.getItem(cKey)) return;
+  if(mask.classList.contains('show')) return;
+  couponMask.classList.add('show');
+  couponMask.setAttribute('aria-hidden','false');
+  let left = 600;
+  couponTimer = setInterval(() => {
+    left = Math.max(0, left - 1);
+    document.getElementById('couponT').textContent = pad(Math.floor(left/60)) + ':' + pad(left%60);
+  }, 1000);
+}
+function closeCoupon(tag){
+  localStorage.setItem(cKey, tag);
+  couponMask.classList.remove('show');
+  couponMask.setAttribute('aria-hidden','true');
+}
+document.getElementById('couponSkip').addEventListener('click', () => closeCoupon('skip'));
+couponMask.addEventListener('click', e => { if(e.target === couponMask) closeCoupon('skip'); });
+document.addEventListener('keydown', e => { if(e.key === 'Escape' && couponMask.classList.contains('show')) closeCoupon('skip'); });
+document.getElementById('couponBtn').addEventListener('click', function(){
+  const btn = this;
+  btn.disabled = true;
+  btn.textContent = '发放中…';
+  setTimeout(() => {
+    const code = 'HJ5OFF-' + Math.random().toString(36).slice(2,6).toUpperCase();
+    const box = document.getElementById('couponCode');
+    box.style.display = 'block';
+    box.textContent = '✔ 领取成功 · 券码 ' + code + '（下单时出示）';
+    btn.textContent = '✔ 已到账 ¥5';
+    localStorage.setItem(cKey, 'claimed');
+    setTimeout(() => {
+      couponMask.classList.remove('show');
+      couponMask.setAttribute('aria-hidden','true');
+      btn.disabled = false; btn.textContent = '立即领取'; box.style.display = 'none';
+    }, 2800);
+  }, 1200);
+});
+setTimeout(showCoupon, 6500);
+/* 演示钩子：#demo-coupon 强制重看 */
+if(/demo-coupon/.test(location.hash)){ localStorage.removeItem(cKey); setTimeout(showCoupon, 400); }
+</script>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
